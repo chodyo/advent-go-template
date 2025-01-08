@@ -29,7 +29,7 @@ Scaffold files to start a new Advent of Code solution.
 
 ##### positional arguments
 
-* `day` (optional) Which puzzle day to start, between `[1,25]`. Defaults to thhe next day **without** a folder (matching `day_NN`) in the specified year.
+* `day` (optional) Which puzzle day to start, between `[1,25]`. Defaults to the next day **without** a folder (matching `day_NN`) in the specified year.
 
 ##### optional arguments
 
@@ -82,12 +82,12 @@ Run a specific day of Advent of Code.
 solutions/
 ├── ...
 └── 2024/
-    ├── day_01/
+    ├── day01/
     │   ├── solution.go
     │   ├── input.txt
     │   ├── input.test.txt
     │   └── README.md
-    ├── day_02/
+    ├── day02/
     │   ├── solution.go
     │   ├── ...
     └── ...
