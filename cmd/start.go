@@ -7,6 +7,8 @@ import (
 	"os"
 	"path/filepath"
 	"time"
+
+	"golang.org/x/mod/modfile"
 )
 
 type Start struct {
@@ -45,7 +47,7 @@ func (opts Start) Execute(args []string) error {
 	}
 
 	solutionPath := filepath.Join(solutionDir, "solution.go")
-	err = generateSolutionGo(year, day, solutionPath)
+	err = generateSolutionGo(day, solutionPath)
 	if err != nil {
 		return fmt.Errorf("failed to generate solution.go: %v", err)
 	}
@@ -105,10 +107,15 @@ func generateReadme(year, day int, path string) error {
 	return os.WriteFile(path, content, 0644)
 }
 
-func generateSolutionGo(year, day int, path string) error {
+func generateSolutionGo(day int, path string) error {
+	moduleName, err := getCurrentModuleName()
+	if err != nil {
+		return fmt.Errorf("failed to get current module name: %v", err)
+	}
+
 	content := fmt.Sprintf(`package day%02d
 
-import "github.com/chodyo/advent-go-template/solutions"
+import "%s/solutions"
 
 type Solution struct{}
 
@@ -131,7 +138,21 @@ func (s Solution) Answer1() int {
 func (s Solution) Answer2() int {
 	return 0
 }
-`, day)
+`, day, moduleName)
 
 	return os.WriteFile(path, []byte(content), 0644)
+}
+
+func getCurrentModuleName() (string, error) {
+	content, err := os.ReadFile("go.mod")
+	if err != nil {
+		return "", fmt.Errorf("failed to read go.mod: %v", err)
+	}
+
+	module, err := modfile.Parse("go.mod", content, nil)
+	if err != nil {
+		return "", fmt.Errorf("failed to parse go.mod: %v", err)
+	}
+
+	return module.Module.Mod.Path, nil
 }
