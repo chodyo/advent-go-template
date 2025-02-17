@@ -2,14 +2,17 @@
 
 [![Go](https://github.com/chodyo/advent-go-template/actions/workflows/go.yml/badge.svg)](https://github.com/chodyo/advent-go-template/actions/workflows/go.yml)
 
-This is my Go project template for the [Advent of Code](https://adventofcode.com) puzzles. It handles creating stub solutions, input parsing, and printing your answer, letting you focus on the actual solve.
+This is my Go project template for the [Advent of Code](https://adventofcode.com) puzzles. It handles creating stub
+solutions, input parsing, and printing your answer, letting you focus on the actual solve.
 
 This project is a Go adaption of [xavdid's Python template](https://github.com/xavdid/advent-of-code-python-template).
 
 ## Quickstart
 
 1. Install Go (check this project's go.mod for the required minimum version)
-2. Create a new repo from this template ([docs](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template)) and clone it locally.
+2. Create a new repo from this template
+   ([docs](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template))
+   and clone it locally.
 3. Start a new solution using `go run . start`
 4. Edit the newly created file at `solutions/YEAR/day_01/solution.go`.
 5. Run your code answers using `go run . advent`.
@@ -29,12 +32,13 @@ Scaffold files to start a new Advent of Code solution.
 
 ##### positional arguments
 
-* `day` (optional) Which puzzle day to start, between `[1,25]`. Defaults to the next day **without** a folder (matching `day_NN`) in the specified year.
+- `day` (optional) Which puzzle day to start, between `[1,25]`. Defaults to the next day **without** a folder
+    (matching `day_NN`) in the specified year.
 
 ##### optional arguments
 
-* `-h, --help` (optional): show this help message and exit
-* `--year YEAR` (optional): Puzzle year. Defaults to current year if December has begun, otherwise previous year.
+- `-h, --help` (optional): show this help message and exit
+- `--year YEAR` (optional): Puzzle year. Defaults to current year if December has begun, otherwise previous year.
 
 #### Examples
 
@@ -57,16 +61,19 @@ Run a specific day of Advent of Code.
 
 ##### positional arguments
 
-* `day` (optional) Which puzzle day to run, between `[1,25]`. Defaults to the next day **with** a folder (matching `day_NN`) in the specified year.
+- `day` (optional) Which puzzle day to run, between `[1,25]`. Defaults to the latest day **with** a folder (matching
+    `day_NN`) in the specified year.
 
 ##### optional flags
 
-* `--year YEAR` (optional): Puzzle year. Defaults to current year if December has begun, otherwise previous year.
-* `-t, --test-data`: read puzzle input from `input.test.txt` instead of `input.txt`.
-* `--debug`: print normally-hidden debug statements (written with `log.Debug(...)`). See [debugging](#debugging).
-* `-profile`: run solution through a performance profiler
-* `--slow`: specify that long-running solutions (or those requiring manual input) should be run. They're skipped by default.
-* `--time`: print information about how long solutions took to run. More useful than timing at a shell level, since this only starts the timer once all boilerplate has been run.
+- `--year YEAR` (optional): Puzzle year. Defaults to current year if December has begun, otherwise previous year.
+- `-t, --test-data`: read puzzle input from `input.test.txt` instead of `input.txt`.
+- `--debug`: print normally-hidden debug statements (written with `log.Debug(...)`). See [debugging](#debugging).
+- `-profile`: run solution through a performance profiler
+- `--slow`: specify that long-running solutions (or those requiring manual input) should be run. They're skipped by
+    default.
+- `--time`: print information about how long solutions took to run. More useful than timing at a shell level, since
+    this only starts the timer once all boilerplate has been run.
 
 #### Examples
 
@@ -78,7 +85,7 @@ Run a specific day of Advent of Code.
 
 ## File Structure
 
-```
+```text
 solutions/
 ├── ...
 └── 2024/
@@ -111,9 +118,11 @@ type Solution interface {
 
 ### Reading Input
 
-The `Input` interface is used to provide the puzzle input in a variety of basic forms so that you don't have to worry about parsing the input yourself.
+The `Input` interface is used to provide the puzzle input in a variety of basic forms so that you don't have to worry
+about parsing the input yourself.
 
-You can override the separator used to split the input for a single day by calling the `SetSeparator` method on the `Input` instance before calling `Lines` or `Ints`.
+You can override the separator used to split the input for a single day by calling the `SetSeparator` method on the
+`Input` instance before calling `Lines` or `Ints`.
 
 ```go
 type Input interface {
@@ -136,13 +145,16 @@ type Input interface {
 
 ### Solution Functions
 
-Each AoC puzzle has two parts, so there are two functions you need to implement: `Part1` and `Part2`. Each returns an `int` since that's typically the answer that AoC expects.
+Each AoC puzzle has two parts, so there are two functions you need to implement: `Part1` and `Part2`. Each returns an
+`int` since that's typically the answer that AoC expects.
 
 Sometimes it's easier to calculate both parts in a single function, but that's up to you.
 
 ### Saving Answers
 
-Once you've solved the puzzle, you can optionally save your answer by calling the `Answer1` and `Answer2` methods on the `Solution` interface. This essentially hard-codes your answer and provides an interface for the `advent` runner to compare your answer to the expected answer.
+Once you've solved the puzzle, you can optionally save your answer by calling the `Answer1` and `Answer2` methods on the
+`Solution` interface. This essentially hard-codes your answer and provides an interface for the `advent` runner to
+compare your answer to the expected answer.
 
 ```go
 func (s *Solution) Answer1() int {
@@ -152,11 +164,12 @@ func (s *Solution) Answer1() int {
 
 ### Debugging
 
-You can use the `log.Debug(...)` function to pretty print all manner of inputs. These only show up when the `--debug` flag is used, making it a convenient way to show debuugging info selectively.
+You can use the `log.Debug(...)` function to pretty print all manner of inputs. These only show up when the `--debug`
+flag is used, making it a convenient way to show debuugging info selectively.
 
 ### Linting
 
-I recommend the following tools: 
+I recommend the following tools:
 
 - [golangci-lint](https://github.com/golangci/golangci-lint)
 
@@ -164,7 +177,7 @@ I recommend the following tools:
 
 You can mark a solution as slow by calling the `Slow` method on the `Solution` interface.
 
-```go   
+```go
 // TODO for me: come up with a better way to mark slow solutions
 func (s *Solution) Slow() bool {
     return true

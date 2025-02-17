@@ -88,7 +88,7 @@ func TestValidateYearAndDay(t *testing.T) {
 		t.Run(groupName, func(t *testing.T) {
 			for _, tc := range group {
 				t.Run(tc.name, func(t *testing.T) {
-					year, day, err := validateYearAndDay(tc.opts, tc.now)
+					year, day, err := validateOrGetDefaultYearAndDay(tc.opts, tc.now)
 					assert.Equal(t, tc.expectedYear, year, "Year should match expected value")
 					assert.Equal(t, tc.expectedDay, day, "Day should match expected value")
 					assert.Equal(t, tc.expectedErr, err != nil, "Error expectation should match")

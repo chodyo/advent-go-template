@@ -19,7 +19,7 @@ type Start struct {
 func (opts Start) Execute(args []string) error {
 	now := time.Now()
 
-	year, day, err := validateYearAndDay(opts, now)
+	year, day, err := validateOrGetDefaultYearAndDay(opts, now)
 	if err != nil {
 		return err
 	}
@@ -62,7 +62,7 @@ func isSolutionExists(year int, day int) bool {
 	return err == nil
 }
 
-func validateYearAndDay(opts Start, now time.Time) (int, int, error) {
+func validateOrGetDefaultYearAndDay(opts Start, now time.Time) (int, int, error) {
 	if opts.Year == 0 {
 		if now.Month() == time.December {
 			opts.Year = now.Year()
